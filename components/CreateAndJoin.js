@@ -7,7 +7,7 @@ import { Button } from 'react-native-paper';
 
 {/* server Params */}
 
-const SERVER_ADDRESS = '192.168.1.3:5000'
+const SERVER_ADDRESS = 'http://192.168.1.3:5000'
 
 
 {/*client states*/}
@@ -23,9 +23,9 @@ const JoinAndCreateComp = () =>
     
 
     async function requestCodeAndSetState (){
-        const code = await fetch(SERVER_ADDRESS.concat('/getCode'))
-        .then(resp => (setCode(code), console.log("should be done"), setErrorBool(0), setShow(1)))
-        .catch (error => (console.log ("Server couldn't be reached."), setErrorBool(1), setCode(""), setShow(1)));
+        const code = await fetch(SERVER_ADDRESS.concat('/getCode')).then(response=>response.json())
+        .then(resp => (console.log(JSON.stringify(resp)), setCode(resp), console.log("should be done"), setErrorBool(0), setShow(1)))
+        .catch (error => (console.log ("Server couldn't be reached."), console.log(error), setErrorBool(1), setCode(""), setShow(1), console.log(SERVER_ADDRESS.concat('/getCode'))));
     }
 
     const DisplayCodeOrError = ({code}) =>{
