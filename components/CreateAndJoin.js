@@ -19,13 +19,15 @@ const JoinAndCreateComp = () =>
 {
     const [showCodeResponse, setShow] = React.useState(0);
     const [errorBool, setErrorBool] = React.useState(null);
-    const [code, setCode] = React.useState("");
+    const [code, setCode] = React.useState("TestCode");
     
 
     async function requestCodeAndSetState (){
-        const code = await fetch(SERVER_ADDRESS.concat('/getCode')).then(response=>response.json())
-        .then(resp => (console.log(JSON.stringify(resp)), setCode(resp), console.log("should be done"), setErrorBool(0), setShow(1)))
-        .catch (error => (console.log ("Server couldn't be reached."), console.log(error), setErrorBool(1), setCode(""), setShow(1), console.log(SERVER_ADDRESS.concat('/getCode'))));
+        await fetch(SERVER_ADDRESS.concat('/getCode')).then(response=>response.json())
+        .then(resp => (setCode (resp.code), setErrorBool(0), setShow(1)))
+        .catch (error => (console.log(error), setErrorBool(1), setCode(""), setShow(1), console.log(SERVER_ADDRESS.concat('/getCode'))));
+    console.log(code)
+    console.log(showCodeResponse)
     }
 
     const DisplayCodeOrError = ({code}) =>{
@@ -39,7 +41,7 @@ const JoinAndCreateComp = () =>
         }
         else if (errorBool === 0){
             return (
-                <Text> Your Pomodoro code is (share with friends!): {code}</Text>
+                <Text>Share this code with your friends: {code}</Text>
             )
         
         }
