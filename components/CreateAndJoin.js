@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { TextInput, BUtton} from 'react-native-paper';
+import { TextInput, Button} from 'react-native-paper';
 import { TouchableHighlight, Text, View, SafeAreaView, StyleSheet} from 'react-native';
-import { Button } from 'react-native-paper';
+import {Context} from '../context';
 
 
 {/* server Params */}
 
 const SERVER_ADDRESS = 'http://192.168.1.3:5000'
+
 
 
 {/*client states*/}
@@ -19,7 +20,7 @@ const JoinAndCreateComp = () =>
 {
     const [showCodeResponse, setShow] = React.useState(0);
     const [errorBool, setErrorBool] = React.useState(null);
-    const [code, setCode] = React.useState("TestCode");
+    const [code, setCode] = React.useContext(Context);
     
 
     async function requestCodeAndSetState (){
@@ -53,6 +54,7 @@ const JoinAndCreateComp = () =>
         }
         
         }
+
 
     const JoinLobbyInput = () => {
     
